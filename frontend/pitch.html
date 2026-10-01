@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PahadRakshak — Interactive Hackathon Pitch Deck</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/app/css/custom.css?v=1.4">
+  <style>
+    .slide { display: none; }
+    .slide.active { display: flex; animation: fadeIn 0.4s ease-out forwards; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 flex flex-col h-screen overflow-hidden select-none">
+
+  <!-- Header Control Bar -->
+  <header class="h-14 border-b border-white/10 bg-slate-950/80 px-6 flex items-center justify-between z-30 shrink-0">
+    <div class="flex items-center gap-3">
+      <span class="text-xl">🏔️</span>
+      <span class="font-bold text-white tracking-wide">PahadRakshak Pitch Deck</span>
+      <span class="text-xs text-teal-400 bg-teal-950 px-2 py-0.5 rounded border border-teal-500/30">TechForge 3.0 & SIH 2026</span>
+    </div>
+
+    <div class="flex items-center gap-4 text-xs">
+      <span id="slide-counter" class="font-mono text-slate-400">Slide 1 / 12</span>
+      <button onclick="toggleSpeakerNotes()" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-white/10 text-slate-300 hover:text-white flex items-center gap-1.5">
+        <span>🎙️</span> Speaker Notes
+      </button>
+      <button onclick="toggleFullscreen()" class="btn-gradient text-xs py-1.5 px-3">
+        <span>🖥️</span> Fullscreen
+      </button>
+    </div>
+  </header>
+
+  <!-- Slide Canvas Container -->
+  <main class="flex-grow relative flex items-center justify-center p-6 sm:p-12 overflow-hidden">
+    
+    <!-- SLIDE 1 -->
+    <div class="slide active flex-col items-center justify-center text-center max-w-4xl w-full h-full glass-panel p-10 border border-blue-500/30">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-teal-500/30 bg-teal-950/50 text-teal-300 text-xs font-semibold uppercase tracking-wider mb-6">
+        TechForge 3.0 Jury Pitch Deck
+      </div>
+      <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
+        🏔️ PahadRakshak
+      </h1>
+      <p class="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400 mt-4">
+        AI-Powered Disaster Risk Intelligence & Emergency Response Platform
+      </p>
+      <p class="text-sm sm:text-base text-slate-300 max-w-2xl mt-6 font-normal">
+        "Transforming Chaotic Citizen Reports & Social Media Posts into Actionable, Prioritized Emergency Intelligence across Uttarakhand."
+      </p>
+      <div class="mt-8 pt-6 border-t border-white/10 text-xs text-slate-400 flex justify-center gap-8">
+        <span>Team PahadRakshak</span>
+        <span>School of Science & Technology, SRHU</span>
+        <span>SIH 2026 Adaptability Ready</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide flex-col justify-center max-w-4xl w-full h-full glass-panel p-10 space-y-6">
+      <div class="text-xs font-bold text-red-400 uppercase tracking-widest">Ground Reality</div>
+      <h2 class="text-3xl font-extrabold text-white">💥 Critical Challenges in Mountain Regions</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-white/10">
+          <div class="font-bold text-slate-100 text-base mb-1">🏔️ Mountain Vulnerability</div>
+          <div class="text-slate-400 text-xs">Narrow highways (NH-07, Kedarnath route) easily blocked by landslides, trapping tourists, pilgrims, & ambulances.</div>
+        </div>
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-white/10">
+          <div class="font-bold text-slate-100 text-base mb-1">📞 Control Room Overload</div>
+          <div class="text-slate-400 text-xs">Hundreds of simultaneous calls during cloudbursts. Control rooms lack automated risk ranking systems.</div>
+        </div>
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-white/10">
+          <div class="font-bold text-slate-100 text-base mb-1">📱 Information Silos</div>
+          <div class="text-slate-400 text-xs">Viral disaster videos & posts on X (Twitter) go unnoticed by official dispatchers.</div>
+        </div>
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-white/10">
+          <div class="font-bold text-slate-100 text-base mb-1">📑 Static CRUD Portals</div>
+          <div class="text-slate-400 text-xs">Existing projects are dumb databases. They don't calculate risk or prioritize life-threatening situations.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide flex-col justify-center max-w-4xl w-full h-full glass-panel p-10 space-y-6">
+      <div class="text-xs font-bold text-teal-400 uppercase tracking-widest">The Solution</div>
+      <h2 class="text-3xl font-extrabold text-white">🛡️ PahadRakshak: Closed-Loop Orchestration</h2>
+      <div class="grid grid-cols-3 gap-6">
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-blue-500/20 text-center">
+          <div class="text-3xl mb-2">📱</div>
+          <h3 class="font-bold text-blue-400 text-sm mb-1">For Citizens</h3>
+          <p class="text-xs text-slate-300">Fast PWA Mobile App for geo-tagged reporting with photo evidence & status tracking.</p>
+        </div>
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-teal-500/20 text-center">
+          <div class="text-3xl mb-2">🤖</div>
+          <h3 class="font-bold text-teal-400 text-sm mb-1">For AI Engine</h3>
+          <p class="text-xs text-slate-300">Multi-factor 0-100 risk scoring with Explainable AI & Social Media Mining.</p>
+        </div>
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-purple-500/20 text-center">
+          <div class="text-3xl mb-2">🛡️</div>
+          <h3 class="font-bold text-purple-400 text-sm mb-1">For Authorities</h3>
+          <p class="text-xs text-slate-300">Control Dashboard with Smart Priority Queue & SDRF/NDRF Team Dispatch.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="slide flex-col justify-center max-w-4xl w-full h-full glass-panel p-10 space-y-6">
+      <div class="text-xs font-bold text-blue-400 uppercase tracking-widest">Product Workflow</div>
+      <h2 class="text-3xl font-extrabold text-white">⚙️ Closed-Loop Emergency Response Flow</h2>
+      <div class="bg-slate-900/90 p-6 rounded-2xl border border-white/10 font-mono text-xs space-y-4">
+        <div class="flex items-center gap-3 text-blue-300">
+          <span class="bg-blue-950 px-2 py-1 rounded border border-blue-500/30">1. Ingestion</span>
+          <span>Citizen App + Social Media (X/Twitter) + Rainfall Telemetry</span>
+        </div>
+        <div class="flex items-center gap-3 text-teal-300">
+          <span class="bg-teal-950 px-2 py-1 rounded border border-teal-500/30">2. AI Scoring</span>
+          <span>Normalized 0-100 Score + Explainable AI Reasons Output</span>
+        </div>
+        <div class="flex items-center gap-3 text-amber-300">
+          <span class="bg-amber-950 px-2 py-1 rounded border border-amber-500/30">3. Prioritization</span>
+          <span>Smart Priority Queue auto-promotes Critical emergencies to top</span>
+        </div>
+        <div class="flex items-center gap-3 text-purple-300">
+          <span class="bg-purple-950 px-2 py-1 rounded border border-purple-500/30">4. Dispatch</span>
+          <span>Authority assigns SDRF/NDRF team with route time estimation</span>
+        </div>
+        <div class="flex items-center gap-3 text-emerald-300">
+          <span class="bg-emerald-950 px-2 py-1 rounded border border-emerald-500/30">5. Resolution</span>
+          <span>Status update to RESOLVED + Citizen notification sent</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="slide flex-col justify-center max-w-4xl w-full h-full glass-panel p-10 space-y-6">
+      <div class="text-xs font-bold text-amber-400 uppercase tracking-widest">Innovation Pillar 1</div>
+      <h2 class="text-3xl font-extrabold text-white">🤖 Multi-Factor AI Risk Engine & Explainable AI</h2>
+      <div class="space-y-4 text-xs">
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-white/10">
+          <div class="font-semibold text-slate-300 mb-1">6 Weighted Risk Inputs:</div>
+          <div class="grid grid-cols-3 gap-2 text-slate-400">
+            <div>• Incident Severity</div>
+            <div>• Rainfall Telemetry (mm)</div>
+            <div>• Historical Hazard Zone</div>
+            <div>• Report Density</div>
+            <div>• Population Impact</div>
+            <div>• Road Blockage Access</div>
+          </div>
+        </div>
+
+        <div class="bg-slate-950 p-4 rounded-xl border border-amber-500/30">
+          <div class="font-bold text-amber-400 mb-1">Explainable AI Output Example:</div>
+          <div class="text-sm font-extrabold text-white mb-1">Risk Score: 87/100 (CRITICAL RISK)</div>
+          <ul class="list-disc list-inside text-slate-300 space-y-0.5">
+            <li>Heavy rainfall signal detected in zone (65mm precipitation).</li>
+            <li>25 affected individuals reported at risk.</li>
+            <li>Road blockage confirmed — emergency response access obstructed.</li>
+            <li>3 historical slope failure events recorded nearby.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 -->
+    <div class="slide flex-col justify-center max-w-4xl w-full h-full glass-panel p-10 space-y-6">
+      <div class="text-xs font-bold text-rose-400 uppercase tracking-widest">Innovation Pillar 2</div>
+      <h2 class="text-3xl font-extrabold text-white">🚨 Smart Auto-Ranked Priority Queue</h2>
+      <div class="grid grid-cols-2 gap-6">
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2 text-xs">
+          <div class="font-bold text-red-400 text-sm">🔥 Auto-Ranked #1 (CRITICAL)</div>
+          <div class="font-mono text-blue-400">#PR-UK-1001 — Landslide</div>
+          <div class="text-slate-300">NH-07 Helang Stretch, Chamoli</div>
+          <div class="bg-red-950/60 p-2 rounded text-red-200 text-[11px]">
+            💡 AI Risk 92/100: 45 stranded pilgrims, ambulance route blocked.
+          </div>
+        </div>
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-3 text-xs">
+          <div class="font-bold text-slate-200 text-sm">⚡ Why Control Rooms Need This:</div>
+          <ul class="list-disc list-inside text-slate-300 space-y-1">
+            <li>Zero manual sorting required during crisis.</li>
+            <li>Critical life-threats auto-promoted to top.</li>
+            <li>One-click SDRF team dispatch right from priority card.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7 -->
+    <div class="slide flex-col justify-center max-w-4xl w-full h-full glass-panel p-10 space-y-6">
+      <div class="text-xs font-bold text-sky-400 uppercase tracking-widest">Innovation Pillar 3</div>
+      <h2 class="text-3xl font-extrabold text-white">🌐 Automated Social Media Mining Crawler</h2>
+      <div class="space-y-4 text-xs">
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-white/10">
+          <div class="font-bold text-sky-400 text-sm mb-1">Mines X (Twitter), Facebook & Instagram Posts</div>
+          <div class="text-slate-300">Parses disaster keywords (#Landslide, #Cloudburst, #Chamoli), extracts location, & evaluates AI risk score.</div>
+        </div>
+
+        <div class="bg-sky-950/50 p-4 rounded-xl border border-sky-500/30 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-0.5 rounded bg-sky-900 text-sky-300 font-bold">📱 SOCIAL MEDIA INGESTED</span>
+            <span class="font-mono text-blue-400 font-bold">#PR-SOC-4843</span>
+          </div>
+          <div class="text-slate-200 italic font-serif text-sm">"Massive landslide at Helang stretch Badrinath route! Vehicles blocked #UttarakhandDisaster"</div>
+          <div class="text-slate-400 text-[11px]">Author: @GarhwalTraveler | Extracted Location: NH-07 Helang Stretch, Chamoli</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8 -->
+    <div class="slide flex-col justify-center max-w-4xl w-full h-full glass-panel p-10 space-y-6">
+      <div class="text-xs font-bold text-teal-400 uppercase tracking-widest">Innovation Pillar 4</div>
+      <h2 class="text-3xl font-extrabold text-white">📍 Geo-Haversine Clustering & Interactive Map</h2>
+      <div class="grid grid-cols-2 gap-6 text-xs">
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
+          <div class="font-bold text-teal-400 text-sm">Spatial Cluster Circles</div>
+          <div class="text-slate-300">Haversine formula links reports within 3.5 km radius to reveal major spatial disaster cluster zones.</div>
+        </div>
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
+          <div class="font-bold text-amber-400 text-sm">Duplicate Report Detector</div>
+          <div class="text-slate-300">Evaluates spatial distance (&lt; 1.5 km) and text similarity to prevent control room dispatcher clutter.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9 -->
+    <div class="slide flex-col justify-center max-w-4xl w-full h-full glass-panel p-10 space-y-6">
+      <div class="text-xs font-bold text-purple-400 uppercase tracking-widest">Innovation Pillar 5</div>
+      <h2 class="text-3xl font-extrabold text-white">📱 PWA Mobile App & Fail-Safe Demo Mode</h2>
+      <div class="grid grid-cols-2 gap-6 text-xs">
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
+          <div class="font-bold text-blue-400 text-sm">Mobile Native App (PWA)</div>
+          <div class="text-slate-300">Installable on Android/iOS home screens with mobile bottom navigation bar & standalone full-screen UI.</div>
+        </div>
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-2">
+          <div class="font-bold text-amber-400 text-sm">⚡ Fail-Safe Demo Mode</div>
+          <div class="text-slate-300">One-click header button executes an end-to-end incident lifecycle in 5 seconds live for judges.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10 -->
+    <div class="slide flex-col justify-center max-w-4xl w-full h-full glass-panel p-10 space-y-6">
+      <div class="text-xs font-bold text-blue-400 uppercase tracking-widest">Architecture</div>
+      <h2 class="text-3xl font-extrabold text-white">🏗️ Production-Grade Tech Stack</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center text-xs">
+        <div class="glass-panel p-4">
+          <div class="text-blue-400 font-bold text-lg">Python 3.13</div>
+          <div class="text-slate-400 mt-1">FastAPI + Uvicorn</div>
+        </div>
+        <div class="glass-panel p-4">
+          <div class="text-teal-400 font-bold text-lg">SQLAlchemy</div>
+          <div class="text-slate-400 mt-1">SQLite / PostgreSQL</div>
+        </div>
+        <div class="glass-panel p-4">
+          <div class="text-amber-400 font-bold text-lg">Leaflet.js</div>
+          <div class="text-slate-400 mt-1">Dark Disaster Map</div>
+        </div>
+        <div class="glass-panel p-4">
+          <div class="text-purple-400 font-bold text-lg">Chart.js</div>
+          <div class="text-slate-400 mt-1">Disaster Analytics</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11 -->
+    <div class="slide flex-col justify-center max-w-4xl w-full h-full glass-panel p-10 space-y-6">
+      <div class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Real-World Reach</div>
+      <h2 class="text-3xl font-extrabold text-white">🏔️ 13-District Uttarakhand Coverage</h2>
+      <div class="bg-slate-900/80 p-5 rounded-xl border border-white/10 space-y-3 text-xs">
+        <div class="text-slate-200"><span class="font-bold text-teal-400">Garhwal Division:</span> Chamoli, Rudraprayag, Uttarkashi, Dehradun, Tehri Garhwal, Pauri Garhwal, Haridwar</div>
+        <div class="text-slate-200"><span class="font-bold text-blue-400">Kumaon Division:</span> Nainital, Almora, Pithoragarh, Bageshwar, Champawat, Udham Singh Nagar</div>
+        <div class="text-slate-400 border-t border-white/10 pt-3">Supported Response Forces: SDRF, NDRF, Garhwal Medical Corps, BRO Heavy Clearance Units, Uttarakhand Police PCR</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12 -->
+    <div class="slide flex-col items-center justify-center text-center max-w-4xl w-full h-full glass-panel p-10 space-y-6 border border-emerald-500/30">
+      <div class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Conclusion & Q&A</div>
+      <h2 class="text-4xl font-extrabold text-white">🏆 Why PahadRakshak Belongs in First Place</h2>
+      <div class="grid grid-cols-2 gap-4 text-xs text-left max-w-xl mx-auto">
+        <div class="bg-slate-900/60 p-3 rounded-lg border border-white/5">✅ Working End-to-End MVP</div>
+        <div class="bg-slate-900/60 p-3 rounded-lg border border-white/5">✅ Explainable AI Risk Scoring</div>
+        <div class="bg-slate-900/60 p-3 rounded-lg border border-white/5">✅ Social Media Mining Engine</div>
+        <div class="bg-slate-900/60 p-3 rounded-lg border border-white/5">✅ Smart Priority Queue</div>
+      </div>
+      <div class="pt-4 text-sm text-slate-300 font-bold">
+        Thank You! Ready for Live Jury Demonstration.
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Presenter Speaker Notes Drawer -->
+  <div id="notes-drawer" class="fixed bottom-16 left-6 right-6 z-40 glass-panel p-4 hidden border border-amber-500/30 text-xs text-amber-200">
+    <div class="font-bold text-amber-400 mb-1 flex items-center justify-between">
+      <span>🎙️ PRESENTER SPEECH NOTES</span>
+      <button onclick="toggleSpeakerNotes()" class="text-slate-400 hover:text-white">&times;</button>
+    </div>
+    <div id="notes-text" class="text-slate-300 font-medium leading-relaxed"></div>
+  </div>
+
+  <!-- Navigation Footer -->
+  <footer class="h-16 border-t border-white/10 bg-slate-950/90 px-6 flex items-center justify-between z-30 shrink-0">
+    <button onclick="prevSlide()" class="btn-gradient text-xs px-4 py-2">
+      &larr; Previous
+    </button>
+
+    <div class="text-xs text-slate-400">
+      Use <kbd class="px-1.5 py-0.5 bg-slate-900 rounded border border-white/10">←</kbd> <kbd class="px-1.5 py-0.5 bg-slate-900 rounded border border-white/10">→</kbd> Arrow Keys to Navigate
+    </div>
+
+    <button onclick="nextSlide()" class="btn-gradient text-xs px-4 py-2">
+      Next &rarr;
+    </button>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    const speakerNotes = [
+      "Respected Judges, presenting PahadRakshak — an AI-powered disaster intelligence platform that ingests citizen reports, social media posts, and environmental data to score risks, prioritize emergencies, and orchestrate rapid SDRF team response.",
+      "Mountain highways like NH-07 get blocked instantly by landslides. Existing college projects build basic form portals that just save data rows into a table without risk intelligence or priority queues.",
+      "PahadRakshak bridges citizens on the ground directly with SDRF, NDRF, BRO, and District Emergency Control Rooms through one unified, intelligent ecosystem.",
+      "Every emergency moves through a 5-step closed-loop lifecycle — from multi-source ingestion to AI scoring, priority ranking, map visualization, response team deployment, and final resolution.",
+      "Our AI is not a black box. It calculates a transparent 0-100 score and explains the exact mathematical reasons to control room officers so they can trust the decision.",
+      "Control room officers no longer waste precious minutes searching through lists. The Smart Priority Queue auto-promotes critical emergencies to the top instantly.",
+      "During disasters, citizens post videos on Twitter before calling official lines. PahadRakshak mines social media posts, extracts locations, evaluates AI risk, and places them directly onto the Control Room Map.",
+      "Our spatial clustering algorithm connects individual ground reports into a bigger geographic picture, showing control rooms exactly where major disaster clusters are forming.",
+      "PahadRakshak runs as a native Mobile App for citizens on smartphones, and includes a built-in live simulation engine so you can see a complete emergency lifecycle right before your eyes.",
+      "We built PahadRakshak using industry-standard Python FastAPI and SQLAlchemy ORM. It's clean, modular, tested, and ready for PostgreSQL cloud deployment.",
+      "PahadRakshak covers all 13 districts of Uttarakhand. It serves as a single source of truth for all regional disaster management authorities.",
+      "PahadRakshak is a working end-to-end MVP ready for TechForge 3.0 first place and Smart India Hackathon 2026 nomination. Thank you!"
+    ];
+
+    function showSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (index + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+
+      document.getElementById('slide-counter').innerText = `Slide ${currentSlide + 1} / ${slides.length}`;
+      document.getElementById('notes-text').innerText = speakerNotes[currentSlide];
+    }
+
+    function nextSlide() { showSlide(currentSlide + 1); }
+    function prevSlide() { showSlide(currentSlide - 1); }
+
+    function toggleSpeakerNotes() {
+      document.getElementById('notes-drawer').classList.toggle('hidden');
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // Mobile Swipe Gesture
+    let touchStartX = 0;
+    document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+    document.addEventListener('touchend', e => {
+      let touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextSlide();
+      if (touchEndX - touchStartX > 50) prevSlide();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => showSlide(0));
+  </script>
+</body>
+</html>

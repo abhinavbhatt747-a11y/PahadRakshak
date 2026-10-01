@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>PahadRakshak — Live Disaster Map & Government Weather Broadcasting</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <link rel="stylesheet" href="/app/css/custom.css?v=11.0">
+  <style>
+    .custom-gps-pin {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="text-slate-100 flex flex-col h-screen overflow-hidden bg-slate-950">
+
+  <!-- Mobile Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/95 border-b border-white/10 shrink-0">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <a href="/app/index.html" class="flex items-center gap-2 sm:gap-3">
+        <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-teal-400 flex items-center justify-center font-black text-sm sm:text-lg">🏔️</div>
+        <span class="text-base sm:text-lg font-bold text-white tracking-tight">PahadRakshak Map</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="/app/index.html" class="hover:text-white">Home</a>
+        <a href="/app/citizen.html" class="hover:text-white">Citizen Portal</a>
+        <a href="/app/dashboard.html" class="hover:text-white">Authority Dashboard</a>
+        <a href="/app/map.html" class="text-blue-400 font-semibold">Live Map</a>
+        <a href="/app/analytics.html" class="hover:text-white">Analytics</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <button onclick="App.triggerLiveFeed()" class="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-purple-950/90 border border-purple-400 text-purple-300 hover:text-white text-[11px] sm:text-xs font-extrabold flex items-center gap-1 shadow-xl animate-pulse">
+          <span>📡</span> <span>Live & Social Feed</span>
+        </button>
+
+        <button onclick="MapVisualizer.toggleWeatherBroadcast()" id="weather-toggle-btn" class="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-amber-950/90 border border-amber-400 text-amber-300 hover:text-white text-[11px] sm:text-xs font-extrabold flex items-center gap-1 shadow-xl">
+          <span>🌤️</span> <span>Live Weather</span>
+        </button>
+
+        <button onclick="MapVisualizer.switchMapTileMode('satellite')" id="map-satellite-btn" class="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-teal-500 text-slate-950 font-black text-[11px] sm:text-xs flex items-center gap-1 shadow-2xl">
+          <span>🛰️</span> <span>Satellite</span>
+        </button>
+
+        <button onclick="MapVisualizer.switchMapTileMode('dark')" id="map-dark-btn" class="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-900 border border-white/20 text-slate-300 hover:text-white text-[11px] sm:text-xs font-extrabold flex items-center gap-1 shadow-lg">
+          <span>🌙</span> <span>Dark</span>
+        </button>
+
+        <button onclick="MapVisualizer.centerOnUserLocation()" class="my-location-btn px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-sky-950/90 border border-sky-400 text-sky-300 hover:text-white text-[11px] sm:text-xs font-extrabold flex items-center gap-1 shadow-xl transition-all">
+          <span>🎯</span> <span>Live Location</span>
+        </button>
+
+
+        <button id="demo-simulate-btn" onclick="DemoSimulator.triggerSimulation()" class="btn-gradient text-[11px] sm:text-xs px-2.5 py-1.5 sm:px-3 sm:py-2">
+          <span>⚡</span> Simulate
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Top Sticky Search Bar Container -->
+  <div class="bg-slate-900/95 border-b border-sky-500/40 p-2.5 z-30 shrink-0">
+    <div class="max-w-xl mx-auto flex items-center gap-2 bg-slate-950 p-1.5 rounded-xl border border-sky-400/80 shadow-lg">
+      <span class="text-lg pl-1">🚘</span>
+      <input type="text" id="route-dest-input" placeholder="Search destination (e.g. SRHU, Badrinath, Chamoli, Dehradun)" class="bg-transparent text-xs w-full text-white placeholder-slate-400 focus:outline-none font-semibold" onkeypress="if(event.key==='Enter') MapVisualizer.checkRouteDanger(this.value)">
+      <button onclick="MapVisualizer.checkRouteDanger(document.getElementById('route-dest-input').value)" class="btn-gradient text-xs py-2 px-3 font-bold shadow-lg whitespace-nowrap bg-gradient-to-r from-sky-500 to-blue-600">
+        🔍 Find Route
+      </button>
+    </div>
+
+    <div id="route-alert-box" class="hidden mt-2 max-w-xl mx-auto"></div>
+  </div>
+
+  <!-- Map Body -->
+  <div class="flex-grow relative">
+    <div id="disaster-map" class="w-full h-full"></div>
+
+    <!-- LIVE GOVERNMENT IMD WEATHER BROADCASTING TICKER PANEL -->
+    <div id="weather-broadcast-panel" class="hidden absolute top-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-[1000] glass-panel p-4 border-2 border-amber-400/80 bg-slate-950/95 text-slate-100 rounded-2xl shadow-2xl space-y-2.5 backdrop-blur-xl">
+      <div class="flex items-center justify-between border-b border-white/10 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🌤️</span>
+          <div>
+            <h3 class="font-extrabold text-white text-xs sm:text-sm">IMD Live Weather Broadcast</h3>
+            <span class="text-[9px] text-amber-300 font-mono block">Ministry of Earth Sciences — Dehradun Radar</span>
+          </div>
+        </div>
+        <button onclick="MapVisualizer.toggleWeatherBroadcast()" class="text-slate-400 hover:text-white font-extrabold text-lg">&times;</button>
+      </div>
+
+      <div id="weather-panel-content" class="space-y-2 text-xs">
+        <div class="text-[11px] text-slate-300 font-medium">Loading live IMD satellite radar feed...</div>
+      </div>
+
+      <div class="pt-2 border-t border-white/10 flex items-center justify-between">
+        <a href="https://mausam.imd.gov.in/dehradun/" target="_blank" rel="noopener noreferrer" class="text-[11px] text-sky-400 font-bold hover:underline flex items-center gap-1">
+          <span>🌐</span> <span>Open Official IMD Dehradun Portal</span>
+        </a>
+        <span class="text-[10px] text-emerald-400 font-mono font-bold">● LIVE RADAR ACTIVE</span>
+      </div>
+    </div>
+
+    <!-- REPORT DENSITY COLOR SCALE LEGEND PANEL -->
+    <div class="absolute top-4 right-4 z-[1000] glass-panel p-3 border border-white/20 bg-slate-950/90 text-slate-100 rounded-2xl shadow-2xl backdrop-blur-md hidden sm:block max-w-xs">
+      <div class="text-[11px] font-extrabold text-slate-200 uppercase tracking-wider mb-2 flex items-center justify-between border-b border-white/10 pb-1">
+        <span class="flex items-center gap-1"><span>📊</span> <span>Report Density Scale</span></span>
+        <span class="text-[9px] text-sky-400 font-mono">Dynamic Scaling</span>
+      </div>
+      <div class="space-y-1.5 text-xs font-medium">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-amber-500 border border-amber-300 shadow shrink-0"></span>
+          <span class="text-amber-300"><b>1 Person</b> <span class="text-slate-400 text-[10px]">(Single Upload)</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3.5 h-3.5 rounded-full bg-orange-500 border border-orange-300 shadow shrink-0"></span>
+          <span class="text-orange-300"><b>2–9 People</b> <span class="text-slate-400 text-[10px]">(Crowd Alert)</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-4 h-4 rounded-full bg-red-500 border border-red-300 shadow shrink-0 animate-pulse"></span>
+          <span class="text-red-300"><b>10–49 People</b> <span class="text-slate-400 text-[10px]">(High Cluster)</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-4.5 h-4.5 rounded-full bg-fuchsia-500 border border-fuchsia-300 shadow shrink-0 animate-bounce"></span>
+          <span class="text-fuchsia-300 font-extrabold"><b>50–100+ People</b> <span class="text-slate-400 text-[10px]">(Viral Surge)</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Mobile Home Shortcut Button (Bottom Left) -->
+    <a href="/app/index.html" class="absolute bottom-6 left-4 z-[1000] p-3 rounded-2xl bg-slate-900/95 text-white font-extrabold text-xs shadow-2xl border-2 border-white/30 flex items-center gap-2 backdrop-blur-md hover:bg-slate-800 active:scale-95 transition-all">
+      <span class="text-base">🏠</span>
+      <span>Home</span>
+    </a>
+
+    <!-- Floating Live Location GPS Button (Bottom Right) -->
+    <button onclick="MapVisualizer.centerOnUserLocation()" class="my-location-btn absolute bottom-6 right-4 sm:bottom-6 sm:right-6 z-[1000] p-3 rounded-2xl bg-sky-600 text-white font-extrabold text-xs shadow-2xl border-2 border-white flex items-center gap-2 hover:bg-sky-500 active:scale-95 transition-all">
+      <span class="text-base animate-pulse">🎯</span>
+      <span>Live Location</span>
+    </button>
+
+  </div>
+
+  <script src="/app/js/app.js?v=11.0"></script>
+  <script src="/app/js/demo.js?v=11.0"></script>
+  <script src="/app/js/map.js?v=11.0"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      MapVisualizer.initMap('disaster-map');
+    });
+  </script>
+</body>
+</html>

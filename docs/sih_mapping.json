@@ -1,0 +1,27 @@
+{
+  "provisional_config": {
+    "project_name": "PahadRakshak",
+    "version": "1.0.0-MVP",
+    "theme": "Disaster Management & Mountain Safety",
+    "target_users": [
+      "Citizens & Pilgrims in High-Risk Terrain",
+      "District Disaster Management Authorities (DDMA)",
+      "SDRF / NDRF Rapid Response Battalions",
+      "State Emergency Control Rooms"
+    ]
+  },
+  "official_sih_2026_adaptability": {
+    "is_official_statement_released": false,
+    "current_provisional_id": "SIH-2026-PROVISIONAL-DISASTER-01",
+    "provisional_title": "AI-Powered Disaster Risk Intelligence & Emergency Response Platform for Mountain Regions",
+    "primary_domain": "Software / Smart Communications / Disaster Resilience",
+    "adaptability_fields": [
+      "problem_statement_id",
+      "problem_statement_title",
+      "problem_owner_ministry",
+      "category",
+      "target_features"
+    ],
+    "how_to_map_to_official_statement": "When official SIH 2026 problem statements are published on sih.gov.in, update backend/app/core/config.py and docs/sih_mapping.json with the exact PS code and ministry name without breaking frontend or backend APIs."
+  }
+}

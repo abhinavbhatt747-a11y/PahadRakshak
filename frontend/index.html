@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PahadRakshak — AI Disaster Management & Dual Portal Platform</title>
+  <meta name="description" content="Dual-portal AI disaster management platform for citizens and emergency response authorities in Uttarakhand.">
+  
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/app/css/custom.css?v=8.0">
+</head>
+<body class="text-slate-100 flex flex-col min-h-screen bg-slate-950">
+
+  <!-- Header / Navigation Bar -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/90 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="/app/index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-teal-400 flex items-center justify-center font-black text-xl shadow-lg shadow-blue-500/30">
+          🏔️
+        </div>
+        <div>
+          <span class="text-xl font-bold tracking-tight text-white block leading-none">PahadRakshak</span>
+          <span class="text-[10px] text-teal-400 font-semibold tracking-wider uppercase block mt-1">Dual Disaster Intelligence Portal</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="/app/index.html" class="text-blue-400 font-semibold">Home</a>
+        <a href="/app/citizen.html" class="hover:text-white transition">👥 Public Citizen Portal</a>
+        <button onclick="openAuthorityModal()" class="hover:text-amber-300 text-amber-400 font-semibold transition flex items-center gap-1">
+          <span>🔒</span> Authority Command
+        </button>
+        <a href="/app/map.html" class="hover:text-white transition">🗺️ Live Map</a>
+        <a href="/app/analytics.html" class="hover:text-white transition">📊 Analytics</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button id="demo-simulate-btn" onclick="DemoSimulator.triggerSimulation()" class="btn-gradient bg-gradient-to-r from-amber-500 to-orange-600 text-xs sm:text-sm">
+          <span>⚡</span> Simulate Emergency
+        </button>
+        <a href="/app/citizen.html" class="btn-gradient text-xs sm:text-sm">
+          👥 Public Entry
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section & Portal Selector -->
+  <main class="flex-grow">
+    <section class="relative py-16 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-teal-500/30 bg-teal-950/40 text-teal-300 text-xs font-bold uppercase tracking-wider mb-6 shadow-xl">
+          <span class="w-2.5 h-2.5 rounded-full bg-teal-400 animate-ping"></span> TechForge 3.0 & SIH 2026 Adaptation
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-tight">
+          AI-Assisted Disaster Management & <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400">Dual Portal Platform</span>
+        </h1>
+
+        <p class="mt-4 text-base sm:text-lg text-slate-300 max-w-3xl mx-auto font-normal">
+          Select your portal to proceed: Open public access for travelers and citizens, or authenticated command access for UKSDMA disaster response officers.
+        </p>
+
+        <!-- DUAL PORTAL SELECTION CARDS -->
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
+          
+          <!-- PUBLIC CITIZEN PORTAL CARD -->
+          <div class="glass-panel p-6 sm:p-8 border-2 border-sky-400/80 bg-slate-900/90 rounded-2xl hover:border-sky-300 transition-all shadow-2xl flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="p-3 bg-sky-500/20 text-sky-400 rounded-xl text-2xl font-bold">👥</span>
+                <span class="px-2.5 py-1 rounded-full bg-emerald-950 text-emerald-300 text-[11px] font-extrabold uppercase border border-emerald-500/30">
+                  Open Public Access (No Login)
+                </span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-white">Public Citizen & Traveler Portal</h3>
+              <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+                Designed for citizens, pilgrims, and mountain travelers across Uttarakhand:
+              </p>
+              
+              <ul class="mt-4 space-y-2 text-xs text-slate-200">
+                <li class="flex items-center gap-2"><span class="text-sky-400">🗺️</span> Live Disaster Map & Dual-Route Safe Bypass</li>
+                <li class="flex items-center gap-2"><span class="text-amber-400">📢</span> 1-Tap SOS Disaster & Road Blockage Reporting</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-400">📞</span> Quick Emergency Dialers (112, 1070, 1077, 108)</li>
+                <li class="flex items-center gap-2"><span class="text-purple-400">🏥</span> Government Relief Shelters & Weather Bulletins</li>
+              </ul>
+            </div>
+
+            <a href="/app/citizen.html" class="w-full btn-gradient py-3.5 text-center text-sm font-extrabold rounded-xl shadow-xl justify-center bg-gradient-to-r from-sky-500 to-blue-600">
+              👥 ENTER PUBLIC CITIZEN PORTAL &rarr;
+            </a>
+          </div>
+
+          <!-- AUTHORITY COMMAND CENTER CARD -->
+          <div class="glass-panel p-6 sm:p-8 border-2 border-amber-500/80 bg-slate-900/90 rounded-2xl hover:border-amber-400 transition-all shadow-2xl flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="p-3 bg-amber-500/20 text-amber-400 rounded-xl text-2xl font-bold">🛡️</span>
+                <span class="px-2.5 py-1 rounded-full bg-amber-950 text-amber-300 text-[11px] font-extrabold uppercase border border-amber-500/30">
+                  🔒 Officer ID Required
+                </span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-white">Authority Command Center</h3>
+              <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+                Full operational control suite for UKSDMA, SDRF, NDRF, Police PCR, and BRO officers:
+              </p>
+
+              <ul class="mt-4 space-y-2 text-xs text-slate-200">
+                <li class="flex items-center gap-2"><span class="text-amber-400">📋</span> Citizen Incident Verification & Triage</li>
+                <li class="flex items-center gap-2"><span class="text-rose-400">🚒</span> 1-Click Rescue Team Dispatch Engine</li>
+                <li class="flex items-center gap-2"><span class="text-blue-400">📢</span> Broadcast Official Government Bulletins</li>
+                <li class="flex items-center gap-2"><span class="text-teal-400">📊</span> AI Risk Scores (0-100) & Statewide Heatmaps</li>
+              </ul>
+            </div>
+
+            <button onclick="openAuthorityModal()" class="w-full btn-gradient py-3.5 text-center text-sm font-extrabold rounded-xl shadow-xl justify-center bg-gradient-to-r from-amber-500 to-orange-600">
+              🔒 AUTHENTICATE OFFICER ID & ENTER &rarr;
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Key Statistics -->
+    <section class="py-10 border-y border-white/10 bg-slate-950/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div class="glass-panel p-5">
+          <div class="text-2xl sm:text-3xl font-extrabold text-blue-400">13 Districts</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Uttarakhand Coverage</div>
+        </div>
+        <div class="glass-panel p-5">
+          <div class="text-2xl sm:text-3xl font-extrabold text-teal-400">100% Verified</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Real Social & Govt Photos</div>
+        </div>
+        <div class="glass-panel p-5">
+          <div class="text-2xl sm:text-3xl font-extrabold text-amber-400">Multi-Route</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Safe Bypass Advice</div>
+        </div>
+        <div class="glass-panel p-5">
+          <div class="text-2xl sm:text-3xl font-extrabold text-rose-400">Real Hardware GPS</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Live Position Engine</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- OFFICER ID VERIFICATION MODAL -->
+  <div id="authority-auth-modal" class="hidden fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-panel max-w-md w-full p-6 sm:p-8 border-2 border-amber-500 bg-slate-950 text-slate-100 rounded-2xl relative shadow-2xl space-y-4">
+      <button onclick="closeAuthorityModal()" class="absolute top-3 right-4 text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+      
+      <div class="text-center space-y-1">
+        <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-2xl mx-auto mb-2">🛡️</div>
+        <h3 class="text-xl font-extrabold text-white">Authority Verification</h3>
+        <p class="text-xs text-slate-300">Enter your official Disaster Management Badge ID & PIN:</p>
+      </div>
+
+      <form id="officer-login-form" onsubmit="handleOfficerLogin(event)" class="space-y-3 pt-2">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Official Officer / Badge ID</label>
+          <input type="text" id="officer-id-input" placeholder="e.g. UKSDMA-OFFICER-01 or SDRF-COMMAND-02" required class="w-full bg-slate-900 border border-white/20 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-mono font-bold">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Access Passkey / PIN</label>
+          <input type="password" id="officer-pass-input" placeholder="Enter Access PIN (Default: pahad123)" required class="w-full bg-slate-900 border border-white/20 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-mono font-bold">
+        </div>
+
+        <div id="auth-error-msg" class="hidden text-xs text-red-400 bg-red-950/80 p-2.5 rounded-xl border border-red-500/40 font-semibold"></div>
+
+        <button type="submit" class="w-full btn-gradient py-3 text-xs font-extrabold justify-center bg-gradient-to-r from-amber-500 to-orange-600 shadow-xl mt-2">
+          🔒 VERIFY OFFICER CREDENTIALS & ENTER &rarr;
+        </button>
+      </form>
+
+      <div class="text-[11px] text-slate-400 text-center pt-2 border-t border-white/10">
+        <span>💡 Demo Credentials: Officer ID: <b>UKSDMA-OFFICER-01</b> | Passkey: <b>pahad123</b></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-slate-950 py-8 text-center text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <span class="font-semibold text-slate-200">PahadRakshak</span> &copy; 2026 — Dual-Portal Architecture for TechForge 3.0 (SRHU)
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="/app/citizen.html" class="hover:text-white">Public Citizen Portal</a>
+        <button onclick="openAuthorityModal()" class="hover:text-amber-300 text-amber-400">Authority Access</button>
+        <a href="/app/map.html" class="hover:text-white">Live Map</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/app/js/app.js?v=8.0"></script>
+  <script src="/app/js/demo.js?v=8.0"></script>
+  <script src="/app/js/auth.js?v=8.0"></script>
+  <script>
+    lucide.createIcons();
+
+    function openAuthorityModal() {
+      if (AuthManager.isAuthority()) {
+        window.location.href = '/app/dashboard.html';
+        return;
+      }
+      document.getElementById('authority-auth-modal').classList.remove('hidden');
+    }
+
+    function closeAuthorityModal() {
+      document.getElementById('authority-auth-modal').classList.add('hidden');
+    }
+
+    async function handleOfficerLogin(e) {
+      e.preventDefault();
+      const idInput = document.getElementById('officer-id-input').value;
+      const passInput = document.getElementById('officer-pass-input').value;
+      const errorMsg = document.getElementById('auth-error-msg');
+
+      errorMsg.classList.add('hidden');
+
+      try {
+        await AuthManager.loginOfficer(idInput, passInput);
+        closeAuthorityModal();
+        window.location.href = '/app/dashboard.html';
+      } catch (err) {
+        errorMsg.innerText = err.message || "Invalid credentials";
+        errorMsg.classList.remove('hidden');
+      }
+    }
+
+    // Auto-open modal if URL contains ?modal=authority
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('modal') === 'authority') {
+        openAuthorityModal();
+      }
+    });
+  </script>
+</body>
+</html>

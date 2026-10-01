@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PahadRakshak — 11-Slide Hackathon Jury Presentation Deck</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/app/css/custom.css?v=12.0">
+  <style>
+    .slide {
+      display: none;
+      min-height: calc(100vh - 120px);
+    }
+    .slide.active {
+      display: flex;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 flex flex-col justify-between min-h-screen overflow-x-hidden font-sans select-none">
+
+  <!-- TOP HEADER & SLIDE PROGRESS BAR -->
+  <header class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-xl border-b border-white/10 px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-teal-400 flex items-center justify-center font-black text-base shadow-lg">🏔️</div>
+      <div>
+        <span class="font-extrabold text-white text-base block leading-none">PahadRakshak (पहाड़ रक्षक) — 11 Slides Deck</span>
+        <span class="text-[10px] text-teal-400 font-semibold uppercase tracking-wider block mt-0.5">36-Hour College Hackathon — TechForge 3.0 / SIH 2026</span>
+      </div>
+    </div>
+
+    <!-- Slide Navigation & Download Controls -->
+    <div class="flex items-center gap-3">
+      <a href="/download/pdf_11" download target="_blank" class="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs shadow-lg flex items-center gap-1.5 animate-pulse">
+        <span>📄</span> <span>Download 11-Slide PDF</span>
+      </a>
+
+      <a href="/download/pptx_11" download target="_blank" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-lg flex items-center gap-1.5">
+        <span>📊</span> <span>Download 11-Slide PPTX</span>
+      </a>
+
+      <div class="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-white/10">
+        Slide <span id="current-slide-num" class="text-amber-400 font-bold">1</span> of <span id="total-slide-num" class="text-white font-bold">11</span>
+      </div>
+      <button onclick="prevSlide()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/15 text-white text-sm font-bold shadow">&larr; Prev</button>
+      <button onclick="nextSlide()" class="p-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-bold shadow-lg shadow-sky-500/20">Next &rarr;</button>
+    </div>
+  </header>
+
+  <!-- SLIDE CONTAINER -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-6 py-8 flex flex-col justify-center">
+
+    <!-- SLIDE 1: TITLE SLIDE -->
+    <div class="slide active flex-col items-center justify-center text-center space-y-6">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-950 border border-blue-500/40 text-blue-300 text-xs font-extrabold uppercase tracking-widest animate-pulse">
+        <span>🏆</span> 36-HOUR COLLEGE HACKATHON BUILD (11-SLIDE EDITION)
+      </div>
+      
+      <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight max-w-4xl leading-tight">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400">PahadRakshak</span> (पहाड़ रक्षक)
+      </h1>
+      
+      <p class="text-lg sm:text-xl text-slate-300 max-w-3xl font-medium">
+        Next-Gen AI Mountain Disaster Navigation, Live Government Sync & 1-Tap Emergency Response System for Uttarakhand Highways.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl w-full text-left pt-4">
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-white/10">
+          <div class="text-xs text-slate-400 font-semibold uppercase">Project Institution</div>
+          <div class="text-sm font-extrabold text-teal-300 mt-1">Swami Rama Himalayan University (SRHU)</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-white/10">
+          <div class="text-xs text-slate-400 font-semibold uppercase">Engineering Team</div>
+          <div class="text-sm font-extrabold text-amber-300 mt-1">6 BCA 1st-Year Student Freshers</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-white/10">
+          <div class="text-xs text-slate-400 font-semibold uppercase">36-Hour Hackathon Scope</div>
+          <div class="text-sm font-extrabold text-sky-300 mt-1">Built in 36 Hours using Antigravity AI</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: THE PROBLEM STATEMENT -->
+    <div class="slide flex-col justify-center space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-lg bg-red-950 text-red-300 font-mono text-xs font-bold border border-red-500/40">PROBLEM STATEMENT</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white">The Himalayan Mountain Disaster Crisis</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-red-500/30 space-y-3">
+          <div class="text-lg font-bold text-red-400 flex items-center gap-2"><span>🔴</span> Frequent Landslides & Cloudbursts</div>
+          <p class="text-slate-300 leading-relaxed">
+            Heavy monsoons trigger slope failures on NH-07 (Badrinath) and NH-109 (Kedarnath), stranding thousands of pilgrims without warning.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-red-500/30 space-y-3">
+          <div class="text-lg font-bold text-red-400 flex items-center gap-2"><span>🛑</span> Blind Commercial Navigation</div>
+          <p class="text-slate-300 leading-relaxed">
+            Google Maps relies on passive traffic slowing and blindly routes vehicles into active landslide debris without mountain hazard alerts.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-red-500/30 space-y-3">
+          <div class="text-lg font-bold text-red-400 flex items-center gap-2"><span>⏳</span> Delayed Emergency Triage</div>
+          <p class="text-slate-300 leading-relaxed">
+            Distress calls lack precise hardware GPS coordinates and verified photos, delaying SDRF, NDRF, and BRO heavy machinery dispatch.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-red-500/30 space-y-3">
+          <div class="text-lg font-bold text-red-400 flex items-center gap-2"><span>📢</span> Rumors & Ghost Blockages</div>
+          <p class="text-slate-300 leading-relaxed">
+            Unverified social media rumors cause panic, while solved road clearance updates take hours to reach travelers on the road.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: OUR SOLUTION -->
+    <div class="slide flex-col justify-center space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-lg bg-emerald-950 text-emerald-300 font-mono text-xs font-bold border border-emerald-500/40">OUR SOLUTION</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white">PahadRakshak: Intelligent Disaster Ecosystem</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-emerald-500/30 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 font-extrabold flex items-center justify-center text-xl">🔀</div>
+          <h3 class="font-extrabold text-white text-base">Conditional Dual-Route Bypass</h3>
+          <p class="text-slate-300 text-xs">
+            Renders 1 clean blue line when safe; 2 distinct paths (Red Unsafe vs Green Safe Bypass) ONLY when primary route is blocked.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-emerald-500/30 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 font-extrabold flex items-center justify-center text-xl">🏛️</div>
+          <h3 class="font-extrabold text-white text-base">Official Govt Live Sync</h3>
+          <p class="text-slate-300 text-xs">
+            Scans and ingests live bulletins directly from UKSDMA, IMD Dehradun, BRO Shivalik, and Police PCR with 1-click source proof links.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-emerald-500/30 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 font-extrabold flex items-center justify-center text-xl">🛡️</div>
+          <h3 class="font-extrabold text-white text-base">Dual-Portal Architecture</h3>
+          <p class="text-slate-300 text-xs">
+            Frictionless Public Citizen Portal for travelers + Secured Authority Command Center with Officer Badge Verification (`UKSDMA-OFFICER-01`).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: SYSTEM ARCHITECTURE -->
+    <div class="slide flex-col justify-center space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-lg bg-sky-950 text-sky-300 font-mono text-xs font-bold border border-sky-500/40">SYSTEM ARCHITECTURE</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white">End-to-End Data Pipeline & AI GIS Engine</h2>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-slate-900/90 border border-white/10 space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-center text-xs">
+          <div class="p-4 rounded-xl bg-slate-950 border border-sky-500/30 space-y-2">
+            <div class="font-bold text-sky-400">1. Data Ingestion</div>
+            <div class="text-slate-300">Citizen SOS + Hardware GPS + Live Crawlers (UKSDMA/IMD/BRO/Police)</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-amber-500/30 space-y-2">
+            <div class="font-bold text-amber-400">2. AI Risk Engine</div>
+            <div class="text-slate-300">Multi-Factor Risk Score (0-100) + Spatial Clustering + Duplicate Detector</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-emerald-500/30 space-y-2">
+            <div class="font-bold text-emerald-400">3. FastAPI Backend</div>
+            <div class="text-slate-300">Python FastAPI + SQLite/PostgreSQL + ResolutionChecker Background Feeder</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-rose-500/30 space-y-2">
+            <div class="font-bold text-rose-400">4. Interactive Clients</div>
+            <div class="text-slate-300">Leaflet GIS Map + OSRM Driving Engine + Progressive Web App (PWA)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: DUAL PORTALS -->
+    <div class="slide flex-col justify-center space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-lg bg-amber-950 text-amber-300 font-mono text-xs font-bold border border-amber-500/40">ROLE SEGMENTATION</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Dual-Portal Ecosystem Architecture</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-sky-500/40 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-extrabold text-sky-400 text-lg">👥 Public Citizen Portal</h3>
+            <span class="px-2.5 py-0.5 rounded bg-sky-950 text-sky-300 text-[10px] font-bold border border-sky-500/30">NO LOGIN REQUIRED</span>
+          </div>
+          <ul class="space-y-2 text-xs text-slate-300 list-disc list-inside">
+            <li>1-Tap Public SOS & Hazard Reporting with verified photo upload</li>
+            <li>Interactive Live Map with Dual-Route safe bypass navigation</li>
+            <li>1-Tap Emergency Helplines (112, 1070, 1077, 108, BRO)</li>
+            <li>Searchable Relief Shelters & Evacuation Safe Zones</li>
+            <li>District Weather Warnings & Location Weather Radar</li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-amber-500/40 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-extrabold text-amber-400 text-lg">🛡️ Authority Command Center</h3>
+            <span class="px-2.5 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] font-bold border border-amber-500/30">OFFICER ID VERIFICATION</span>
+          </div>
+          <ul class="space-y-2 text-xs text-slate-300 list-disc list-inside">
+            <li>Officer Badge Verification (`UKSDMA-OFFICER-01`, Passkey: `pahad123`)</li>
+            <li>Broadcast Official Government Disaster Bulletins to public apps</li>
+            <li>AI Priority Triage Queue (Auto-ranked by risk score 0-100)</li>
+            <li>1-Click Emergency Response Team Dispatch (SDRF, NDRF, BRO, Medical, Police)</li>
+            <li>Source Inspector to verify social media posts and ground evidence</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: AI MULTI-FACTOR RISK ENGINE -->
+    <div class="slide flex-col justify-center space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-lg bg-rose-950 text-rose-300 font-mono text-xs font-bold border border-rose-500/40">AI RISK CALCULATOR</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Multi-Factor AI Risk Scoring (0-100)</h2>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-slate-900/90 border border-rose-500/40 space-y-4 text-xs">
+        <div class="p-3 bg-slate-950 rounded-xl font-mono text-amber-300 text-center text-sm border border-amber-500/30">
+          Risk Score = (Severity &times; 25%) + (Rainfall &times; 20%) + (History &times; 15%) + (Road Blocked &times; 15%) + (Affected People &times; 15%) + (Density &times; 10%)
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+          <div class="p-3 rounded-lg bg-slate-950 border border-white/10">
+            <div class="font-bold text-red-400">CRITICAL (80-100)</div>
+            <div class="text-slate-400 text-[10px]">Cloudburst, Full Blockage, Life Threat</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-950 border border-white/10">
+            <div class="font-bold text-orange-400">HIGH (60-79)</div>
+            <div class="text-slate-400 text-[10px]">Landslide, Heavy Debris, Road Blocked</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-950 border border-white/10">
+            <div class="font-bold text-amber-400">MODERATE (40-59)</div>
+            <div class="text-slate-400 text-[10px]">Minimal Hazard, Traffic Slowed</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-950 border border-white/10">
+            <div class="font-bold text-emerald-400">LOW (0-39)</div>
+            <div class="text-slate-400 text-[10px]">Minor Rain / Clear</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: SMART DUAL ROUTE NAVIGATION -->
+    <div class="slide flex-col justify-center space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-lg bg-teal-950 text-teal-300 font-mono text-xs font-bold border border-teal-500/40">SMART NAVIGATION</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Conditional Dual-Route Bypass System</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-emerald-500/40 space-y-2">
+          <div class="font-black text-emerald-400 text-sm">✅ SAFE HIGHWAY SCENARIO</div>
+          <p class="text-slate-300">
+            When the primary highway is safe and clear of disasters, the map renders <b>1 single glowing blue line</b> without screen clutter.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-red-500/40 space-y-2">
+          <div class="font-black text-red-400 text-sm">🔀 HAZARD SCENARIO (UNSAFE PRIMARY)</div>
+          <p class="text-slate-300">
+            When a disaster or road blockage is detected on the primary highway, the engine renders <b>2 distinct paths</b>:
+          </p>
+          <ul class="list-disc list-inside text-slate-300 space-y-1">
+            <li><b class="text-red-400">Route A (Red Dashed Line)</b>: Unsafe Primary Highway with Road Blockage alert</li>
+            <li><b class="text-emerald-400">Route B (Green Glowing Line)</b>: Recommended 100% Safe Bypass Route</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: GOVT SYNC & AUTO CLEARANCE -->
+    <div class="slide flex-col justify-center space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-lg bg-sky-950 text-sky-300 font-mono text-xs font-bold border border-sky-500/40">GOVT SYNC & PURGE</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Live Government Sync & Auto Map Purging</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-sky-500/40 space-y-2">
+          <div class="font-bold text-sky-400 text-sm">🏛️ Official Government Sync</div>
+          <p class="text-slate-300">
+            Direct REST crawlers syncing UKSDMA, IMD Dehradun, BRO Shivalik, and Police PCR updates with 1-click source verification links pointing directly to official domains.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-emerald-500/40 space-y-2">
+          <div class="font-bold text-emerald-400 text-sm">🧹 Auto-Clearance Map Purging</div>
+          <p class="text-slate-300">
+            <code>ResolutionCheckerService</code> scans BRO heavy machinery clearance logs and purges resolved road blockages from live maps automatically (Zero Ghost Markers Policy).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: LOCATION WEATHER BROADCAST -->
+    <div class="slide flex-col justify-center space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-lg bg-amber-950 text-amber-300 font-mono text-xs font-bold border border-amber-500/40">LOCATION WEATHER</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Location Weather Broadcasting & IMD Radar</h2>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-slate-900/90 border border-amber-500/40 space-y-3 text-xs">
+        <div class="p-3 bg-gradient-to-r from-sky-900 to-blue-950 rounded-xl border border-sky-400 font-mono text-sky-200">
+          📍 THIS IS YOUR LOCATION & THIS IS THE WEATHER IN YOUR AREA
+        </div>
+        <p class="text-slate-300">
+          Displays real-time weather forecasts (temperature, rain mm, wind speed, humidity) fetched directly for the user's exact hardware GPS coordinates alongside statewide IMD precipitation Doppler circles.
+        </p>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: 36-HOUR TEAM WORKFLOW -->
+    <div class="slide flex-col justify-center space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-lg bg-purple-950 text-purple-300 font-mono text-xs font-bold border border-purple-500/40">36-HOUR TEAM WORKFLOW</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white">36-Hour College Hackathon Team & Roles</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-emerald-500/40 space-y-2">
+          <div class="font-bold text-emerald-400 text-sm">💻 1 AI Application Developer (Team Lead)</div>
+          <p class="text-slate-300">
+            Directed Google Antigravity AI, architected FastAPI backend, database schemas, and dual-route spatial math.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-amber-500/40 space-y-2">
+          <div class="font-bold text-amber-400 text-sm">🔍 5 QA Bug Hunters, Data & Device Testers</div>
+          <p class="text-slate-300">
+            Gathered UKSDMA/BRO disaster data, verified emergency helplines, tested mobile hardware GPS over HTTPS, and hunted UI bugs across campus.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: DEMO PROOF & CONCLUSION -->
+    <div class="slide flex-col justify-center text-center space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-300 text-xs font-bold uppercase">
+        <span>🏆</span> TECHFORGE 3.0 & SIH 2026 ADAPTATION
+      </div>
+
+      <h2 class="text-3xl sm:text-5xl font-black text-white">PahadRakshak: Saving Lives in the Himalayas</h2>
+      
+      <p class="text-base text-slate-300 max-w-2xl mx-auto">
+        Built in 36 hours by a 6-student BCA fresher engineering team from Swami Rama Himalayan University (SRHU), Dehradun, to safeguard mountain travelers across Uttarakhand.
+      </p>
+
+      <div class="flex items-center justify-center gap-4 pt-4">
+        <a href="/download/pdf_11" download class="btn-gradient px-6 py-3 text-sm font-bold bg-gradient-to-r from-red-500 to-rose-600">
+          📄 Download 11-Slide PDF
+        </a>
+        <a href="/download/pptx_11" download class="btn-gradient px-6 py-3 text-sm font-bold bg-gradient-to-r from-emerald-500 to-teal-600">
+          📊 Download 11-Slide PPTX
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER CONTROLS -->
+  <footer class="bg-slate-950/90 border-t border-white/10 px-6 py-3 flex items-center justify-between text-xs text-slate-400">
+    <div>Use <kbd class="px-1.5 py-0.5 bg-slate-800 text-white rounded">←</kbd> and <kbd class="px-1.5 py-0.5 bg-slate-800 text-white rounded">→</kbd> arrow keys to navigate slides</div>
+    <div>Swami Rama Himalayan University (SRHU) BCA Team</div>
+  </footer>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 11;
+
+    function showSlide(index) {
+      if (index < 1) index = 1;
+      if (index > totalSlides) index = totalSlides;
+
+      currentSlide = index;
+      document.querySelectorAll('.slide').forEach((s, idx) => {
+        if (idx + 1 === currentSlide) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+
+      document.getElementById('current-slide-num').innerText = currentSlide;
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>PahadRakshak — Public Citizen Emergency Portal</title>
+  
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="/app/manifest.json">
+  <meta name="theme-color" content="#0b1329">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PahadRakshak Public">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/app/css/custom.css?v=10.0">
+</head>
+<body class="text-slate-100 flex flex-col min-h-screen pb-20 md:pb-0 bg-slate-950">
+
+  <!-- App Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/90 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="/app/citizen.html" class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-teal-400 flex items-center justify-center font-black text-lg shadow-lg">🏔️</div>
+        <div>
+          <span class="text-base font-bold text-white block leading-none">PahadRakshak</span>
+          <span class="text-[9px] text-teal-400 font-semibold tracking-wider uppercase block mt-0.5">Public Citizen Emergency Portal</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="/app/index.html" class="hover:text-white">Home</a>
+        <a href="/app/citizen.html" class="text-blue-400 font-bold">👥 Public Citizen Portal</a>
+        <a href="/app/map.html" class="hover:text-white">🗺️ Live Map</a>
+        <a href="/app/index.html?modal=authority" class="hover:text-amber-300 text-amber-400 font-bold">🔒 Authority Command</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a href="/app/map.html" class="btn-gradient text-xs py-2 px-3 bg-gradient-to-r from-sky-500 to-blue-600">
+          🗺️ Open Live Map
+        </a>
+        <button id="demo-simulate-btn" onclick="DemoSimulator.triggerSimulation()" class="btn-gradient text-xs py-2 px-3 bg-gradient-to-r from-amber-500 to-orange-600">
+          <span>⚡</span> Simulate
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PUBLIC CITIZEN TAB SWITCHER -->
+  <div class="bg-slate-900/90 border-b border-white/10 sticky top-16 z-30">
+    <div class="max-w-7xl mx-auto px-4 flex items-center gap-2 overflow-x-auto py-2.5 text-xs font-extrabold scrollbar-none">
+      <button onclick="switchTab('report')" id="tab-btn-report" class="px-4 py-2 rounded-xl bg-sky-600 text-white shadow-lg flex items-center gap-1.5 whitespace-nowrap">
+        <span>📢</span> Report Hazard / SOS
+      </button>
+      <button onclick="switchTab('helplines')" id="tab-btn-helplines" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap border border-white/10">
+        <span>📞</span> 1-Tap Emergency Helplines
+      </button>
+      <button onclick="switchTab('shelters')" id="tab-btn-shelters" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap border border-white/10">
+        <span>🏥</span> Relief Shelters & Safe Zones
+      </button>
+      <button onclick="switchTab('weather')" id="tab-btn-weather" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap border border-white/10">
+        <span>🌤️</span> District Weather Alerts
+      </button>
+    </div>
+  </div>
+
+  <!-- App Main Content -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+
+    <!-- TAB 1: REPORT HAZARD / SOS -->
+    <div id="tab-content-report" class="space-y-6">
+      <div class="flex flex-col lg:flex-row gap-6">
+        
+        <!-- Incident Report Form -->
+        <div class="lg:w-7/12">
+          <div class="glass-panel p-5 sm:p-7 border border-white/10">
+            <div class="flex items-center justify-between gap-3 mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl font-bold">📢</div>
+                <div>
+                  <h1 class="text-xl sm:text-2xl font-extrabold text-white">Public SOS & Hazard Report</h1>
+                  <p class="text-xs text-slate-400">Instantly alerts District Control Rooms & SDRF teams.</p>
+                </div>
+              </div>
+              
+              <button type="button" onclick="autoDetectUserGPS()" class="px-3 py-1.5 rounded-xl bg-sky-950 border border-sky-500/40 text-sky-300 hover:text-white text-xs font-bold flex items-center gap-1 shadow-lg shrink-0">
+                <span>📍</span> Auto-Detect GPS
+              </button>
+            </div>
+
+            <form id="incident-form" onsubmit="handleIncidentSubmit(event)" class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Disaster / Hazard Type *</label>
+                <select id="inc-type" required class="w-full glass-input text-sm font-semibold">
+                  <option value="Landslide">Landslide / Slope Collapse</option>
+                  <option value="Flood">Flash Flood / River Overflow</option>
+                  <option value="Road Blockage">Road Blockage / Debris</option>
+                  <option value="Heavy Rainfall">Cloudburst / Torrential Rain</option>
+                  <option value="Infrastructure Damage">Bridge / Retaining Wall Damage</option>
+                  <option value="Stranded People">Stranded Tourists / Pilgrims</option>
+                  <option value="Accident">Accident in Hazard Zone</option>
+                  <option value="Other">Other Emergency</option>
+                </select>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Severity Level *</label>
+                  <select id="inc-severity" required class="w-full glass-input text-sm font-semibold">
+                    <option value="CRITICAL">CRITICAL (Life Threat)</option>
+                    <option value="HIGH" selected>HIGH (Severe Hazard)</option>
+                    <option value="MODERATE">MODERATE (Moderate Risk)</option>
+                    <option value="LOW">LOW (Minor Hazard)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">District *</label>
+                  <select id="inc-district" required class="w-full glass-input text-sm font-semibold">
+                    <option value="Chamoli" selected>Chamoli</option>
+                    <option value="Dehradun">Dehradun</option>
+                    <option value="Rudraprayag">Rudraprayag</option>
+                    <option value="Uttarkashi">Uttarkashi</option>
+                    <option value="Nainital">Nainital</option>
+                    <option value="Tehri Garhwal">Tehri Garhwal</option>
+                    <option value="Pauri Garhwal">Pauri Garhwal</option>
+                    <option value="Haridwar">Haridwar</option>
+                    <option value="Almora">Almora</option>
+                    <option value="Pithoragarh">Pithoragarh</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">Address / Highway Landmark *</label>
+                  <span class="text-[10px] text-sky-400 font-semibold">📍 Report Distance Offset:</span>
+                </div>
+                <input type="text" id="inc-address" required placeholder="e.g. NH-07 Helang Stretch near Pipalkoti (5 km away)" class="w-full glass-input text-sm font-semibold" value="NH-07 Helang Stretch, Chamoli">
+                
+                <!-- 1 km / 3 km / 5 km / 10 km Remote Reporting Buttons -->
+                <div class="mt-2 flex items-center gap-1.5 flex-wrap">
+                  <span class="text-[11px] text-slate-400 font-bold">Report Hazard:</span>
+                  <button type="button" onclick="setDistanceOffset(0)" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold border border-white/10">📍 At My Spot (0 km)</button>
+                  <button type="button" onclick="setDistanceOffset(1)" class="px-2 py-1 rounded-lg bg-sky-950 hover:bg-sky-800 text-sky-300 text-[10px] font-bold border border-sky-500/40">➡️ 1 km Ahead</button>
+                  <button type="button" onclick="setDistanceOffset(3)" class="px-2 py-1 rounded-lg bg-sky-950 hover:bg-sky-800 text-sky-300 text-[10px] font-bold border border-sky-500/40">➡️ 3 km Ahead</button>
+                  <button type="button" onclick="setDistanceOffset(5)" class="px-2 py-1 rounded-lg bg-amber-950 hover:bg-amber-800 text-amber-300 text-[10px] font-bold border border-amber-500/40">➡️ 5 km Ahead</button>
+                  <button type="button" onclick="setDistanceOffset(10)" class="px-2 py-1 rounded-lg bg-purple-950 hover:bg-purple-800 text-purple-300 text-[10px] font-bold border border-purple-500/40">➡️ 10 km Away</button>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Latitude (GPS)</label>
+                  <input type="number" step="any" id="inc-lat" required class="w-full glass-input text-sm font-mono" value="30.5214">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Longitude (GPS)</label>
+                  <input type="number" step="any" id="inc-lng" required class="w-full glass-input text-sm font-mono" value="79.5102">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Affected People</label>
+                  <input type="number" id="inc-affected" min="1" class="w-full glass-input text-sm font-semibold" value="15">
+                </div>
+
+                <div class="flex items-center gap-2 pt-6">
+                  <input type="checkbox" id="inc-road-blocked" class="w-4 h-4 rounded bg-slate-900 border-white/20 text-blue-600" checked>
+                  <label for="inc-road-blocked" class="text-xs font-bold text-slate-200">Road Movement Blocked</label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Observation Details</label>
+                <textarea id="inc-desc" rows="2" required class="w-full glass-input text-sm" placeholder="Provide ground observation details...">Heavy landslide debris blocking vehicles on highway.</textarea>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Photo Evidence (Verified Citizen Upload)</label>
+                <input type="file" id="inc-photo" accept="image/*" class="w-full glass-input text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white">
+              </div>
+
+              <button type="submit" id="submit-btn" class="btn-gradient w-full justify-center py-3.5 text-sm sm:text-base font-extrabold shadow-xl bg-gradient-to-r from-sky-500 to-blue-600">
+                🚀 Submit Public Hazard Report
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Live Citizen Feed & AI Risk Feedback -->
+        <div class="lg:w-5/12 space-y-5">
+          <div id="result-card" class="glass-panel p-5 hidden border-l-4 border-l-teal-400">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold text-teal-400 uppercase tracking-wider">Report Registered</span>
+              <span id="res-code" class="font-mono text-xs font-bold text-white bg-slate-900 px-2 py-0.5 rounded">#PR-UK-0000</span>
+            </div>
+
+            <div class="bg-slate-950/60 p-3 rounded-xl border border-white/10 mb-3">
+              <div class="text-[10px] text-slate-400 uppercase font-semibold mb-1">AI Risk Score</div>
+              <div class="flex items-center gap-3">
+                <div id="res-score" class="text-3xl font-extrabold text-white">87/100</div>
+                <div id="res-level-badge"></div>
+              </div>
+            </div>
+
+            <div class="space-y-1.5 mb-3">
+              <div class="text-[11px] font-semibold text-slate-300 uppercase">Explainable AI Reasons:</div>
+              <ul id="res-reasons" class="text-xs text-slate-300 space-y-1 list-disc list-inside bg-slate-900/40 p-2.5 rounded-lg border border-white/5"></ul>
+            </div>
+          </div>
+
+          <div class="glass-panel p-5">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-base font-extrabold text-white flex items-center gap-2">
+                <span>🔴</span> Live Verified Incident Feed
+              </h2>
+              <div class="flex items-center gap-2">
+                <button onclick="loadIncidents()" class="text-xs text-blue-400 font-bold hover:underline">Refresh</button>
+              </div>
+            </div>
+            <div id="incidents-list" class="space-y-2.5 max-h-[440px] overflow-y-auto pr-1"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB 2: 1-TAP EMERGENCY HELPLINES -->
+    <div id="tab-content-helplines" class="hidden space-y-6">
+      <div class="glass-panel p-6 sm:p-8">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-2xl font-bold">📞</div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white">1-Tap Emergency Helplines</h2>
+            <p class="text-xs text-slate-300">Direct 1-tap quick dialers for immediate disaster assistance in Uttarakhand:</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
+          <a href="tel:112" class="p-5 rounded-2xl bg-slate-900/90 border border-red-500/40 hover:border-red-400 space-y-2 block transition-all shadow-xl">
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-extrabold text-red-400">🚨 112</span>
+              <span class="px-2 py-0.5 bg-red-950 text-red-300 text-[10px] font-bold rounded">NATIONAL EMERGENCY</span>
+            </div>
+            <div class="text-sm font-bold text-white">All-in-One Police, Fire & Medical</div>
+            <p class="text-xs text-slate-400">Single emergency line for instant police and ambulance dispatch.</p>
+          </a>
+
+          <a href="tel:1070" class="p-5 rounded-2xl bg-slate-900/90 border border-sky-500/40 hover:border-sky-400 space-y-2 block transition-all shadow-xl">
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-extrabold text-sky-400">🏛️ 1070</span>
+              <span class="px-2 py-0.5 bg-sky-950 text-sky-300 text-[10px] font-bold rounded">STATE CONTROL ROOM</span>
+            </div>
+            <div class="text-sm font-bold text-white">UKSDMA State Disaster Management</div>
+            <p class="text-xs text-slate-400">State emergency operations center for landslide and flood rescue.</p>
+          </a>
+
+          <a href="tel:1077" class="p-5 rounded-2xl bg-slate-900/90 border border-amber-500/40 hover:border-amber-400 space-y-2 block transition-all shadow-xl">
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-extrabold text-amber-400">🏢 1077</span>
+              <span class="px-2 py-0.5 bg-amber-950 text-amber-300 text-[10px] font-bold rounded">DISTRICT CONTROL</span>
+            </div>
+            <div class="text-sm font-bold text-white">District Magistrate Emergency Line</div>
+            <p class="text-xs text-slate-400">Direct connection to Chamoli, Dehradun & District Control Rooms.</p>
+          </a>
+
+          <a href="tel:108" class="p-5 rounded-2xl bg-slate-900/90 border border-emerald-500/40 hover:border-emerald-400 space-y-2 block transition-all shadow-xl">
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-extrabold text-emerald-400">🚑 108</span>
+              <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 text-[10px] font-bold rounded">AMBULANCE</span>
+            </div>
+            <div class="text-sm font-bold text-white">Emergency Medical Service (108)</div>
+            <p class="text-xs text-slate-400">High-altitude mountain ambulance and medical casualty team.</p>
+          </a>
+
+          <a href="tel:18001804141" class="p-5 rounded-2xl bg-slate-900/90 border border-purple-500/40 hover:border-purple-400 space-y-2 block transition-all shadow-xl">
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-extrabold text-purple-400">🚜 BRO Helpline</span>
+              <span class="px-2 py-0.5 bg-purple-950 text-purple-300 text-[10px] font-bold rounded">ROAD CLEARANCE</span>
+            </div>
+            <div class="text-sm font-bold text-white">Border Roads Organisation</div>
+            <p class="text-xs text-slate-400">Heavy machinery and JCB road clearance on Chardham national highways.</p>
+          </a>
+
+          <a href="tel:01352710334" class="p-5 rounded-2xl bg-slate-900/90 border border-teal-500/40 hover:border-teal-400 space-y-2 block transition-all shadow-xl">
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-extrabold text-teal-400">🚓 Police PCR</span>
+              <span class="px-2 py-0.5 bg-teal-950 text-teal-300 text-[10px] font-bold rounded">POLICE CONTROL</span>
+            </div>
+            <div class="text-sm font-bold text-white">Uttarakhand Police Headquarters</div>
+            <p class="text-xs text-slate-400">Highway patrol, traffic diversion, and tourist safety support.</p>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: RELIEF SHELTERS & SAFE ZONES -->
+    <div id="tab-content-shelters" class="hidden space-y-6">
+      <div class="glass-panel p-6 sm:p-8">
+        <div class="flex items-center justify-between gap-3 mb-6">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl font-bold">🏥</div>
+            <div>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-white">Relief Camps & Evacuation Shelters</h2>
+              <p class="text-xs text-slate-300">Verified government relief centers, medical posts, and safe assembly zones:</p>
+            </div>
+          </div>
+          <a href="/app/map.html" class="btn-gradient text-xs py-2 px-3">View on Map &rarr;</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-white text-sm">📍 SRHU Emergency Relief Center & Medical Base</span>
+              <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 text-[10px] font-bold rounded">OPEN & OPERATIONAL</span>
+            </div>
+            <p class="text-xs text-slate-300">Jolly Grant, Doiwala, Dehradun | Capacity: 1,500 Beds</p>
+            <div class="text-[11px] text-sky-400 font-mono">Facilities: Medical Trauma Care, Food Supplies, Clean Water, Power Backup</div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-white text-sm">📍 Chamoli District Relief Camp</span>
+              <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 text-[10px] font-bold rounded">OPEN & OPERATIONAL</span>
+            </div>
+            <p class="text-xs text-slate-300">Government Inter College, Gopeshwar, Chamoli | Capacity: 800 Persons</p>
+            <div class="text-[11px] text-sky-400 font-mono">Facilities: Temporary Tents, Warm Blankets, SDRF Rescue Team Stationed</div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-white text-sm">📍 Joshimath Helipad Safe Assembly Zone</span>
+              <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 text-[10px] font-bold rounded">OPEN & OPERATIONAL</span>
+            </div>
+            <p class="text-xs text-slate-300">Army Helipad Ground, Joshimath | Capacity: 1,200 Persons</p>
+            <div class="text-[11px] text-sky-400 font-mono">Facilities: Air Evacuation Point, Army Medical Corps, Emergency Ration</div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-white text-sm">📍 Rishikesh Transit Pilgrimage Shelter</span>
+              <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 text-[10px] font-bold rounded">OPEN & OPERATIONAL</span>
+            </div>
+            <p class="text-xs text-slate-300">ISBT Complex & AIIMS Corridor, Rishikesh | Capacity: 2,000 Persons</p>
+            <div class="text-[11px] text-sky-400 font-mono">Facilities: Bus Transportation, AIIMS Trauma Doctors, Information Desk</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: DISTRICT WEATHER ALERTS -->
+    <div id="tab-content-weather" class="hidden space-y-6">
+      <div class="glass-panel p-6 sm:p-8">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl font-bold">🌤️</div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white">District Weather & Heavy Rain Alerts</h2>
+            <p class="text-xs text-slate-300">Real-time weather warnings synced with IMD & UKSDMA updates:</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+          <div class="p-4 rounded-2xl bg-red-950/80 border border-red-500/50 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="font-extrabold text-sm text-red-400">Chamoli District</span>
+              <span class="px-2 py-0.5 bg-red-600 text-white text-[10px] font-bold rounded">RED ALERT</span>
+            </div>
+            <p class="text-xs text-slate-200">Heavy cloudburst rainfall & flash flood risk along Alaknanda river basin. High landslide probability on NH-07.</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-amber-950/80 border border-amber-500/50 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="font-extrabold text-sm text-amber-300">Rudraprayag District</span>
+              <span class="px-2 py-0.5 bg-amber-600 text-white text-[10px] font-bold rounded">ORANGE WARNING</span>
+            </div>
+            <p class="text-xs text-slate-200">Continuous rain reported along Kedarnath route. Pilgrims advised to stop at Sonprayag night shelters.</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-white/10 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-sky-300">Dehradun District</span>
+              <span class="px-2 py-0.5 bg-sky-950 text-sky-300 text-[10px] font-bold rounded">MODERATE</span>
+            </div>
+            <p class="text-xs text-slate-300">Light to moderate showers in Maldevta & Mussoorie stretches. Driving conditions normal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Mobile Bottom App Bar -->
+  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-xl border-t border-white/10 md:hidden flex items-center justify-around py-2.5 text-slate-400 text-[10px]">
+    <a href="/app/citizen.html" class="flex flex-col items-center gap-0.5 text-blue-400 font-bold">
+      <span class="text-base">👥</span>
+      <span>Public App</span>
+    </a>
+    <a href="/app/map.html" class="flex flex-col items-center gap-0.5 hover:text-white">
+      <span class="text-base">🗺️</span>
+      <span>Live Map</span>
+    </a>
+    <a href="/app/index.html?modal=authority" class="flex flex-col items-center gap-0.5 text-amber-400 font-bold">
+      <span class="text-base">🔒</span>
+      <span>Authority</span>
+    </a>
+    <button onclick="DemoSimulator.triggerSimulation()" class="flex flex-col items-center gap-0.5 text-rose-400 font-bold">
+      <span class="text-base">⚡</span>
+      <span>Simulate</span>
+    </button>
+  </nav>
+
+  <script src="/app/js/app.js?v=10.0"></script>
+  <script src="/app/js/demo.js?v=10.0"></script>
+  <script>
+    function switchTab(tabName) {
+      ['report', 'helplines', 'shelters', 'weather'].forEach(t => {
+        const content = document.getElementById(`tab-content-${t}`);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (t === tabName) {
+          if (content) content.classList.remove('hidden');
+          if (btn) btn.className = "px-4 py-2 rounded-xl bg-sky-600 text-white shadow-lg flex items-center gap-1.5 whitespace-nowrap font-extrabold";
+        } else {
+          if (content) content.classList.add('hidden');
+          if (btn) btn.className = "px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap border border-white/10 font-bold";
+        }
+      });
+    }
+
+    let baseUserLat = 30.5214;
+    let baseUserLng = 79.5102;
+
+    function setDistanceOffset(km) {
+      const currentLat = parseFloat(document.getElementById('inc-lat').value) || baseUserLat;
+      const currentLng = parseFloat(document.getElementById('inc-lng').value) || baseUserLng;
+      
+      if (km === 0) {
+        document.getElementById('inc-lat').value = baseUserLat.toFixed(6);
+        document.getElementById('inc-lng').value = baseUserLng.toFixed(6);
+        App.showToast("📍 Hazard Location reset to your exact GPS spot (0 km)", "info");
+        return;
+      }
+
+      // 1 km is approx 0.009 degrees latitude offset
+      const latOffset = (km * 0.0090);
+      const lngOffset = (km * 0.0045);
+
+      const offsetLat = baseUserLat + latOffset;
+      const offsetLng = baseUserLng + lngOffset;
+
+      document.getElementById('inc-lat').value = offsetLat.toFixed(6);
+      document.getElementById('inc-lng').value = offsetLng.toFixed(6);
+
+      const addrInput = document.getElementById('inc-address');
+      let cleanAddr = addrInput.value.replace(/\s*\(\approx.*?\)/gi, '').replace(/\s*\(Approx.*?\)/gi, '');
+      addrInput.value = `${cleanAddr} (Approx ${km} km ahead on highway)`;
+
+      App.showToast(`📍 Hazard Location set to ${km} km away from your position (${offsetLat.toFixed(4)}, ${offsetLng.toFixed(4)})`, "info");
+    }
+
+    function autoDetectUserGPS() {
+      if (!navigator.geolocation) {
+        App.showToast("Geolocation is not supported by your device.", "error");
+        return;
+      }
+      App.showToast("Acquiring exact hardware GPS coordinates...", "info");
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          baseUserLat = pos.coords.latitude;
+          baseUserLng = pos.coords.longitude;
+          document.getElementById('inc-lat').value = pos.coords.latitude.toFixed(6);
+          document.getElementById('inc-lng').value = pos.coords.longitude.toFixed(6);
+          App.showToast(`Exact GPS Acquired: ${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`, "info");
+        },
+        (err) => {
+          App.showToast("GPS Error: Please enable location permissions on your browser.", "error");
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    }
+
+    async function handleIncidentSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = 'Calculating AI Risk...';
+
+      const formData = new FormData();
+      formData.append('type', document.getElementById('inc-type').value);
+      formData.append('severity', document.getElementById('inc-severity').value);
+      formData.append('district', document.getElementById('inc-district').value);
+      formData.append('address', document.getElementById('inc-address').value);
+      formData.append('latitude', document.getElementById('inc-lat').value);
+      formData.append('longitude', document.getElementById('inc-lng').value);
+      formData.append('affected_people', document.getElementById('inc-affected').value);
+      formData.append('road_blocked', document.getElementById('inc-road-blocked').checked);
+      formData.append('description', document.getElementById('inc-desc').value);
+
+      const fileInput = document.getElementById('inc-photo');
+      if (fileInput.files.length > 0) {
+        formData.append('file', fileInput.files[0]);
+      }
+
+      try {
+        const res = await App.fetchAPI('/incidents', {
+          method: 'POST',
+          body: formData
+        });
+
+        App.showToast(`Incident #${res.incident_code} submitted! Risk: ${res.risk_score}/100`, 'info');
+
+        const card = document.getElementById('result-card');
+        card.classList.remove('hidden');
+        document.getElementById('res-code').innerText = `#${res.incident_code}`;
+        document.getElementById('res-score').innerText = `${res.risk_score}/100`;
+        document.getElementById('res-level-badge').innerHTML = App.getRiskBadge(res.risk_level);
+
+        const reasonsUl = document.getElementById('res-reasons');
+        reasonsUl.innerHTML = (res.risk_reasons || []).map(r => `<li>${r}</li>`).join('');
+
+        loadIncidents();
+      } catch (err) {
+        console.error(err);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '🚀 Submit Public Hazard Report';
+      }
+    }
+
+    async function loadIncidents() {
+      const container = document.getElementById('incidents-list');
+      try {
+        const data = await App.fetchAPI('/incidents');
+        container.innerHTML = data.map(inc => `
+          <div class="p-2.5 rounded-xl bg-slate-900/60 border border-white/5 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-mono text-xs text-blue-400 font-bold">#${inc.incident_code}</span>
+                ${App.getSourceBadge(inc.description || '', inc.incident_code)}
+              </div>
+              ${App.getRiskBadge(inc.risk_level, inc.risk_score)}
+            </div>
+            <div class="font-semibold text-xs text-slate-100">${inc.type}</div>
+            <div class="text-[11px] text-slate-400 truncate">${inc.address}</div>
+            <div class="text-[10px] text-amber-400 font-semibold font-mono">
+              🕒 Reported: ${App.formatTime(inc.created_at)} (${App.formatRelativeTime(inc.created_at)})
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-white/5">
+              <span>Status: ${App.getStatusBadge(inc.status)}</span>
+              <span>Affected: ${inc.affected_people}</span>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        container.innerHTML = '<div class="text-xs text-slate-500">Failed to load.</div>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadIncidents();
+      autoDetectUserGPS();
+      
+      // AUTO POLLING EVERY 5 SECONDS FOR LIVE INCIDENT FEEDING
+      setInterval(() => {
+        loadIncidents();
+      }, 5000);
+    });
+  </script>
+</body>
+</html>

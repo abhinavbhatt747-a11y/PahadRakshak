@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PahadRakshak — Master Team Handbook & Jury Q&A Guide</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/app/css/custom.css?v=1.4">
+
+  <style>
+    @media print {
+      body { background: #ffffff !important; color: #000000 !important; font-size: 11pt; }
+      .glass-panel { background: #ffffff !important; border: 1px solid #ddd !important; box-shadow: none !important; color: #000000 !important; }
+      .no-print { display: none !important; }
+      h1, h2, h3, h4, strong { color: #000000 !important; }
+      .bg-slate-900, .bg-slate-950 { background: #f8fafc !important; color: #000000 !important; border: 1px solid #ccc !important; }
+      .text-slate-300, .text-slate-400 { color: #333333 !important; }
+      .text-blue-400, .text-teal-400, .text-amber-400 { color: #000000 !important; font-weight: bold; }
+    }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen pb-12">
+
+  <!-- Header Control Bar -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/90 border-b border-white/10 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/app/index.html" class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-teal-400 flex items-center justify-center font-black text-lg">🏔️</div>
+        <span class="text-lg font-bold text-white">PahadRakshak Team Handbook</span>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <button onclick="window.print()" class="btn-gradient text-xs py-2 px-4 flex items-center gap-2 shadow-lg">
+          <span>🖨️</span> Save / Print as PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Document Main Container -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    
+    <!-- Document Title Header -->
+    <div class="glass-panel p-8 text-center border-l-4 border-l-teal-400">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-teal-500/30 bg-teal-950/50 text-teal-300 text-xs font-semibold uppercase tracking-wider mb-4">
+        Official Team Preparation & Jury Q&A Guide
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white">🏔️ PahadRakshak Master Handbook</h1>
+      <p class="text-sm text-slate-300 mt-2">Everything every team member must know for TechForge 3.0 & SIH 2026 Jury Presentation.</p>
+    </div>
+
+    <!-- Section 1: Executive Summary -->
+    <div class="glass-panel p-6 space-y-4">
+      <h2 class="text-xl font-bold text-teal-400 flex items-center gap-2"><span>1.</span> Executive Summary & Identity</h2>
+      <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+        <p><strong>Project Name:</strong> PahadRakshak (AI-Powered Disaster Risk Intelligence & Emergency Response Platform)</p>
+        <p><strong>Geographic Scope:</strong> All 13 Districts of Uttarakhand (Chamoli, Dehradun, Rudraprayag, Uttarkashi, Nainital, etc.)</p>
+        <p><strong>Elevator Pitch:</strong> PahadRakshak is an AI-assisted emergency response platform that ingests citizen reports, social media posts (X/Twitter), and rainfall telemetry to score disaster risks, automatically rank emergencies in a Smart Priority Queue, and orchestrate rapid response team dispatch for government control rooms.</p>
+      </div>
+    </div>
+
+    <!-- Section 2: The Core Problem -->
+    <div class="glass-panel p-6 space-y-4">
+      <h2 class="text-xl font-bold text-red-400 flex items-center gap-2"><span>2.</span> The Core Problem We Are Solving</h2>
+      <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+        <p>1. <strong>Mountain Terrain Vulnerability:</strong> Landslides block highways (NH-07 Badrinath route), trapping tourists & ambulances.</p>
+        <p>2. <strong>Control Room Overload:</strong> Hundreds of simultaneous calls during cloudbursts. Control rooms lack automated risk ranking systems.</p>
+        <p>3. <strong>Social Media Silos:</strong> Viral tweets/videos on X (Twitter) go unnoticed by official dispatchers.</p>
+        <p>4. <strong>Flaw of Traditional Student Projects:</strong> Basic college projects are dumb databases that just save data rows without calculating risk or prioritizing emergencies.</p>
+      </div>
+    </div>
+
+    <!-- Section 3: Deep-Dive Features -->
+    <div class="glass-panel p-6 space-y-4">
+      <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2"><span>3.</span> Key Innovations & Features</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-amber-300">🤖 Multi-Factor Risk Engine & Explainable AI</div>
+          <div class="text-slate-300">Calculates 0-100 risk score from 6 weighted factors (severity, rain telemetry, history, density, affected, road blockage) and explains WHY.</div>
+        </div>
+
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-red-300">🚨 Smart Auto-Ranked Priority Queue</div>
+          <div class="text-slate-300">Auto-ranks emergencies by risk score descending so life-threatening situations get SDRF team dispatch instantly.</div>
+        </div>
+
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-sky-300">🌐 Social Media Mining Crawler</div>
+          <div class="text-slate-300">Scans X (Twitter), Facebook, Instagram for disaster keywords, extracts location, & alerts control room with author handle.</div>
+        </div>
+
+        <div class="bg-slate-900/80 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-teal-300">📍 Geo-Haversine Clustering & Map</div>
+          <div class="text-slate-300">Links reports within 3.5 km into Spatial Cluster Circles on Leaflet dark map with custom risk markers.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: 25 Jury Q&As -->
+    <div class="glass-panel p-6 space-y-6">
+      <h2 class="text-xl font-bold text-purple-400 flex items-center gap-2"><span>4.</span> 25 Anticipated Jury Questions & Winning Answers</h2>
+
+      <div class="space-y-4 text-xs">
+        
+        <div class="bg-slate-900/70 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-white text-sm">Q1: What makes PahadRakshak different from a normal disaster web portal?</div>
+          <div class="text-slate-300"><strong>Answer:</strong> Normal portals are passive databases — they just save forms into a table. PahadRakshak is an active AI intelligence system. It calculates 0-100 risk scores, ranks emergencies in a Smart Priority Queue, mines social media posts, detects geographic clusters, and calculates response team travel times.</div>
+        </div>
+
+        <div class="bg-slate-900/70 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-white text-sm">Q2: Is your AI a black box? How does the control room trust the risk score?</div>
+          <div class="text-slate-300"><strong>Answer:</strong> No! Our AI uses an Explainable AI model. For every score (e.g. 87/100), it lists the exact mathematical reasons — such as heavy rainfall telemetry, population count, road blockage, and historical hazard memory.</div>
+        </div>
+
+        <div class="bg-slate-900/70 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-white text-sm">Q3: What if someone posts about a disaster on X (Twitter) instead of your app?</div>
+          <div class="text-slate-300"><strong>Answer:</strong> PahadRakshak includes an automated Social Media Mining Crawler. It scans X/Twitter posts for hashtags like #Landslide or #Chamoli, extracts the location, generates an emergency ticket tagged as [SOURCE: SOCIAL MEDIA], and alerts the control room.</div>
+        </div>
+
+        <div class="bg-slate-900/70 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-white text-sm">Q4: How does an incident get resolved?</div>
+          <div class="text-slate-300"><strong>Answer:</strong> For physical safety, resolution requires ground verification by the deployed SDRF team. Once verified, the control room clicks 'Resolve', which automatically frees the SDRF team back to AVAILABLE status, updates district analytics, and sends a notification to the reporting citizen.</div>
+        </div>
+
+        <div class="bg-slate-900/70 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-white text-sm">Q5: Does this app cover all of Uttarakhand or just one city?</div>
+          <div class="text-slate-300"><strong>Answer:</strong> It covers all 13 districts of Uttarakhand across Garhwal and Kumaon regions — including Chamoli, Rudraprayag, Uttarkashi, Dehradun, Nainital, Tehri, Pauri, Almora, Pithoragarh, etc.</div>
+        </div>
+
+        <div class="bg-slate-900/70 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-white text-sm">Q6: What if no citizen reports a landslide that just happened?</div>
+          <div class="text-slate-300"><strong>Answer:</strong> PahadRakshak is a multi-source intelligence system. Even before citizen reports arrive, our AI monitors precipitation telemetry (rainfall mm/hr) and historical vulnerability zones to flag automated hazard alerts on the map.</div>
+        </div>
+
+        <div class="bg-slate-900/70 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-white text-sm">Q7: How do you prevent duplicate reports from clogging the control room?</div>
+          <div class="text-slate-300"><strong>Answer:</strong> We use a Duplicate Report Detector algorithm that checks spatial distance (&lt; 1.5 km) and category matching. It links duplicate reports together rather than creating separate tickets.</div>
+        </div>
+
+        <div class="bg-slate-900/70 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-white text-sm">Q8: What database are you using and can it scale?</div>
+          <div class="text-slate-300"><strong>Answer:</strong> We are using SQLite for zero-config offline hackathon execution, managed via SQLAlchemy ORM. Because we used SQLAlchemy ORM, migrating to cloud PostgreSQL for production only requires changing one line in .env.</div>
+        </div>
+
+        <div class="bg-slate-900/70 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-white text-sm">Q9: Can citizens use this on their smartphones?</div>
+          <div class="text-slate-300"><strong>Answer:</strong> Yes! PahadRakshak is configured as a Progressive Web App (PWA). Citizens can open it on Chrome/Safari and click 'Add to Home Screen' to run it fullscreen like a native mobile app.</div>
+        </div>
+
+        <div class="bg-slate-900/70 p-4 rounded-xl border border-white/5 space-y-1">
+          <div class="font-bold text-white text-sm">Q10: How do you estimate response team travel times?</div>
+          <div class="text-slate-300"><strong>Answer:</strong> We use the Haversine formula to compute spatial surface distance between the response team's base coordinates and the incident coordinates, applying mountain terrain speed factors to estimate travel minutes.</div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
